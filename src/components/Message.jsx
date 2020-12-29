@@ -6,7 +6,11 @@ export default class Message extends React.Component {
         text: PropTypes.string.isRequired
     };
 
+    static defaultProps = {
+        text: ''
+    };
+
     render() {
-        return <span>{this.props.text}</span>;
+        return <div>{this.props.text}</div>; //или див?
     }
 }
