@@ -1,0 +1,21 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import '../styles/Header.css';
+
+export default class Header extends React.Component {
+    static propTypes = {
+        heading: PropTypes.string
+    };
+
+    static defaultProps = {
+        text: '_TextToMe_'
+    };
+
+    render () {
+        return <header className={'header'}>
+        </header>
+    }
+}

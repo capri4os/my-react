@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 // import {TextField} from 'material-ui';
 import TextField from 'material-ui/TextField';
-import {MDCRipple} from '@material/ripple';
-// import Button from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton';
+
+import '../styles/SendMessage.css';
 
 export default class SendMessage extends React.Component {
     state = {
@@ -30,15 +31,20 @@ export default class SendMessage extends React.Component {
 
     render() {
         return <>
-            <TextField 
+            <TextField className={'send-message'}
                        value={this.state.message}
                        onChange={this.handleChange}
                        onKeyUp={this.handleKeyUp}
                     //    fullWidth={true}
-                       multiline={true} 
+                       multiline={true}
                        name={'message'}
+                       hintText={'Type here'}
                     />
             <button onClick={this.send}>Send</button>
+            {/* <RaisedButton 
+            label="Primary" 
+            primary={true} 
+            style={style} /> */}
             </>;
     }
 }
