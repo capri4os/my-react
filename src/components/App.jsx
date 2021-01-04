@@ -4,10 +4,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Message from './Message.jsx';
 // import Example from './Example';
-import MessageList from './MessageList';
-import SendMessage from './SendMessage';
 import Header from './Header'
 import ChatList from './ChatList'
+import MessageList from './MessageList';
+import SendMessage from './SendMessage';
 
 import '../styles/App.css';
 
@@ -39,7 +39,7 @@ export default class App extends React.Component {
                     this.setState({messages: [...this.state.messages, {message: "Leave me alone, I'm robo!", author: 'robot'}]});
                     this.setState({timeout});
                 },
-                2000
+                10000
             );
         }
     }
@@ -60,11 +60,14 @@ export default class App extends React.Component {
         return <MuiThemeProvider>
             <main>
                 <Header />
-                <ChatList />
+                <div className='chats'><ChatList />
+                <div className='current-chat'>
                 <MessageList messages={this.state.messages}/>
                 {/* <Message text={this.state.text}/> */}
                 {/* <Example /> */}
-                <SendMessage send={this.send}/>
+                <SendMessage send={this.send}/></div>
+                </div>
+                
             </main> 
         </MuiThemeProvider>;
     }

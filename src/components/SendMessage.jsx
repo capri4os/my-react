@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import {TextField} from 'material-ui';
 import TextField from 'material-ui/TextField';
-// import RaisedButton from 'material-ui/RaisedButton';
+// import FloatingActionButton from 'material-ui/FloatingActionButton';
+// import SendIcon from 'material-ui/svg-icons/content/send';
 
 import '../styles/SendMessage.css';
 
@@ -41,6 +41,9 @@ export default class SendMessage extends React.Component {
                        hintText={'Type here'}
                     />
             <button onClick={this.send}>Send</button>
+            {/* <FloatingActionButton onClick={this.send} >
+                <SendIcon />Send
+            </FloatingActionButton> */}
             {/* <RaisedButton 
             label="Primary" 
             primary={true} 

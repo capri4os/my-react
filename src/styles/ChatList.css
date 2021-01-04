@@ -1,4 +1,6 @@
 .chat-list {
-  width: 30%;
-  height: 500px;
+  width: 450px;
+  height: 250px;
+  padding: 10px;
+  font-family: "Courier New", Courier, monospace;
 }
