@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from '../styles/Message';
+
 export default class Message extends React.Component {
     static propTypes = {
-        text: PropTypes.string.isRequired
+        text: PropTypes.string.isRequired,
+        author: PropTypes.string.isRequired
     };
 
     static defaultProps = {
@@ -11,6 +14,9 @@ export default class Message extends React.Component {
     };
 
     render() {
-        return <div>{this.props.text}</div>;
+        return <div style={{...styles.message, alignSelf: this.props.author === 'robot' ? 'flex-start' : 'flex-end'}}>
+            <div>{this.props.message}</div>
+            <div style={styles.author}>{this.props.author}</div>
+        </div>;
     }
 }

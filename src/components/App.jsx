@@ -1,8 +1,15 @@
 import React from 'react';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import Message from './Message.jsx';
 // import Example from './Example';
+import Header from './Header'
+import ChatList from './ChatList'
 import MessageList from './MessageList';
+import SendMessage from './SendMessage';
+
+import '../styles/App.css';
 
 export default class App extends React.Component {
 
@@ -10,84 +17,58 @@ export default class App extends React.Component {
         super(props);
 
         this.state = {
-            // text: 'Some text from state',
-            // timeout: null,
-            messages: ['Hello!', 'How are you?', "I'm fine."],
+            messages: [],
             interval: null
         };
     }
-    // { 'author': 'Me', 'message': Hello!' },
-    // { 'author': 'Me', 'message': 'How are you!' },
-    // { 'author': 'Me', 'message': "I'm fine." }
 
-    componentWillMount (){
-        console.log('componentWillMount');
-    }
+    // componentWillMount (){
+    //     console.log('componentWillMount');
+    // }
 
-    componentDidMount(){
-        console.log('componentDidMount');
-        // const timeout = setTimeout(
-        //     () => {
-        //         this.setState({text: this.state.text + ' Updated'});
-        //     },
-        //     20000
-        // );
-        const interval = setInterval(
-            () => {
-                this.setState({messages: [...this.state.messages, 'How are you?']});
-                setTimeout(
-                    () => this.setState({messages: [...this.state.messages, "Leave me alone, I'm robo!"]}),
-                    3000
-                );
-            },
-            6000
-        );
-        // this.setState({timeout});
-        this.setState({interval});
-    }
+    // componentDidMount(){
+    //     console.log('componentDidMount');
+    // }
 
     componentDidUpdate(){
-        console.log('componentDidUpdate');
-        // if (this.state.messages.length % 2 === 1) {
-        //     setTimeout( () => 
-        //     this.setState(
-        //         {messages: [...this.state.messages, "Leave me alone, I'm robo!"]}
-        //     ), 1000
-        // )
-        // }
-        // const interval = setInterval(
-        //     () => {
-        //         this.setState({messages: [...this.state.messages, 'How are you?']});
-        //         setTimeout(
-        //             () => this.setState({messages: [...this.state.messages, 'I do not answer you. I am robot']}),
-        //             1000
-        //         );
-        //     },
-        //     2000
-        // );
-        // this.setState({interval});
-        // this.setState({timeout});
+        // console.log('componentDidUpdate');
+        console.log(this.state.messages.length, this.state.messages.length % 2);
+        if(this.state.messages.length % 2 > 0){
+            const timeout = setTimeout(
+                () => {
+                    this.setState({messages: [...this.state.messages, {message: "Leave me alone, I'm robo!", author: 'robot'}]});
+                    this.setState({timeout});
+                },
+                10000
+            );
+        }
     }
 
     componentWillUnmount(){
-        console.log('componentWillUnmount');
-        // clearTimeout(this.state.timeout);
-        clearInterval(this.state.interval);
-        // this.setState({timeout: null});
-        this.setState({interval: null});
+        // console.log('componentWillUnmount');
+        clearTimeout(this.state.timeout);
+        // clearInterval(this.state.interval);
+        this.setState({timeout: null});
+        // this.setState({interval: null});
     }
 
-    handleClick = () => {
-        this.setState({messages: [...this.state.messages, 'And so on']});
+    send = objMsg => {
+        this.setState({messages: [...this.state.messages, objMsg]});
     };
 
     render() {
-        console.log('render');
-        return <main>
-            <MessageList messages={this.state.messages}/>
-            <Message text={this.state.text}/>
-            {/* <Example /> */}
-            <button onClick={ this.handleClick }>Send message</button>
-        </main>;
+        return <MuiThemeProvider>
+            <main>
+                <Header />
+                <div className='chats'><ChatList />
+                <div className='current-chat'>
+                <MessageList messages={this.state.messages}/>
+                {/* <Message text={this.state.text}/> */}
+                {/* <Example /> */}
+                <SendMessage send={this.send}/></div>
+                </div>
+                
+            </main> 
+        </MuiThemeProvider>;
     }
 }
