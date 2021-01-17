@@ -59,23 +59,23 @@ export default class App extends React.Component {
             <main>
                 <BrowserRouter>
                 <Header />
-                <div className='chats'><ChatList />
-                <div className='current-chat'>
-                {/* <MessageList messages={this.state.messages}/> */}
-                {/* <Message text={this.state.text}/> */}
-                {/* <Example /> */}
-                {/* <SendMessage send={this.send}/> */}
-                </div>
-                </div>
-                <nav>
+                <div className='chats'>
+                    <ChatList />
+                    <div className='current-chat'>
+                    {/* <MessageList messages={this.state.messages}/> */}
+                    {/* <Message text={this.state.text}/> */}
+                    {/* <Example /> */}
+                    {/* <SendMessage send={this.send}/> */}
+                    <nav>
                     <Link to='/chat/1'>Чат 1 </Link>
                     <Link to='/chat/2'>Чат 2 </Link>
-                </nav>
-                    <Switch>
+                </nav><Switch>
                         <Route exact path="/" component={Messages}/>
                         <Route path="/chat/:chatId" render={obj => <Messages chatId={obj.match.params.chatId}/>}/>
                         {/* <Route path="/chat/2"><Messages chatId={2}/></Route> */}
                     </Switch>
+                    </div>
+                </div>
                 </BrowserRouter>
             </main> 
         </MuiThemeProvider>;
