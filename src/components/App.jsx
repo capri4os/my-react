@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import connect from 'react-redux/es/connect/connect';
 import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
@@ -14,7 +17,7 @@ import initStore from '../store';
 
 import '../styles/App.css';
 
-export default class App extends React.Component {
+class App extends React.Component {
 
     constructor(props){
         super(props);
@@ -43,6 +46,15 @@ export default class App extends React.Component {
         this.setState({timeout: null});
     }
 
+    addChat = (title) => {
+        const { chats } = this.state;
+        const chatId = Object.keys(chats).length + 1;
+        this.setState ({
+            chats:{... chats,
+                [chatId]: {title: title, messageList: []}},
+            })
+        };
+
     render() {
         return <MuiThemeProvider>
             <main>
@@ -50,7 +62,9 @@ export default class App extends React.Component {
                     <BrowserRouter>
                     <Header />
                     <div className='chats'>
-                        <ChatList />
+                        <ChatList 
+                            addChat = { this . addChat }
+                        />
                         <div className='current-chat'>
                         <Switch>
                             <Route exact path="/" component={Messages}/>
@@ -64,3 +78,10 @@ export default class App extends React.Component {
         </MuiThemeProvider>;
     }
 }
+
+const mapStateToProps = ({}) => ({});
+
+const mapDispatchToProps = dispatch => bindActionCreators ({ sendMessage },
+dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
