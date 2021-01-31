@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import connect from 'react-redux/es/connect/connect';
+// import connect from 'react-redux/es/connect/connect';
 import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import {Provider} from 'react-redux';
+import connect from 'react-redux/es/connect/connect';
+import {ConnectedRouter} from 'connected-react-router';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -13,7 +15,7 @@ import ChatList from './ChatList'
 import MessageList from './MessageList';
 import SendMessage from './SendMessage';
 import Messages from './pages/Messages';
-import initStore from '../store';
+import initStore, {history} from '../store';
 
 import '../styles/App.css';
 
@@ -59,6 +61,7 @@ class App extends React.Component {
         return <MuiThemeProvider>
             <main>
                 <Provider store={initStore()}>
+                <ConnectedRouter history={history}>
                     <BrowserRouter>
                     <Header />
                     <div className='chats'>
@@ -73,6 +76,7 @@ class App extends React.Component {
                         </div>
                     </div>
                     </BrowserRouter>
+                    </ConnectedRouter>
                 </Provider>
             </main> 
         </MuiThemeProvider>;
