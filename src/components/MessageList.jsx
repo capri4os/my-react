@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import connect from 'react-redux/es/connect/connect';
 
 import Message from './Message';
 
 import '../styles/MessageList.css';
 
-export default class MessageList extends React.Component {
+class MessageList extends React.Component {
     static propTypes = {
         messages: PropTypes.array
     };
@@ -20,3 +22,11 @@ export default class MessageList extends React.Component {
         </div>;
     }
 }
+
+const mapStateToProps = ({ chatReducer }) => ({
+    chats : chatReducer.chats,
+    }) ;
+
+const mapDispatchToProps = dispatch => bindActionCreators ({}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageList);
