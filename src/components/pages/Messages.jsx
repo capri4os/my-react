@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import MessageList from '../MessageList';
 import SendMessage from '../SendMessage';
 
-import {sendMessage} from '../../store/actions/message';
+import {sendMessage, setMessages} from '../../store/actions/message';
 
 class Messages extends React.Component {
     state = {
@@ -59,6 +59,65 @@ class Messages extends React.Component {
         this.setState({chats: {...chats}});
     };
 
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.messagesStore.length < this.props.messagesStore.length && 
+            this.props.messagesStore[this.props.messagesStore.length - 1].author === 'me'){
+                setTimeout(
+                    () => this.send({message: 'I\'m robot', author: 'robot'}),
+                    1000
+                );
+        }
+    }
+
+    componentDidMount() {
+        // fetch(
+        //     '/api/chats.json'
+        // ).then(response => response.json()).then(response => {
+        //     console.log('response', response);
+
+        //     let chats = {};
+        //     let messages = [];
+
+        //     for(let id in response){
+        //         chats[parseInt(id)]= {
+        //             name: response[id].name,
+        //             messages: [...response[id].messages.map(item => parseInt(item.id))]
+        //         };
+        //         messages.push(...response[id].messages.map(item => ({...item, id: parseInt(item.id)})));
+        //     }
+
+        //     this.props.setMessages(messages);
+        //     this.setState({chats: {...chats}});
+
+        // }).catch(err => console.log('err', err));
+
+        (async () => {
+            try{
+                let response = await fetch('api1/chats.json'); // первый then()
+                response = await response.json(); // второй then()
+
+                let chats = {};
+                let messages = [];
+                for(let id in response){
+                    chats[parseInt(id)]= {
+                        name: response[id].name,
+                        messages: [...response[id].messages.map(item => parseInt(item.id))]
+                    };
+                    messages.push(...response[id].messages.map(item => ({...item, id: parseInt(item.id)})));
+                }
+
+                this.props.setMessages(messages);
+                this.setState({chats: {...chats}});
+
+                // throw new Error({err: true, msg: 'error'});
+
+            }
+            catch(e){
+                console.log('try -> catch', e);
+            }
+        })();
+    };
+
     render () {
         return <>
         <h2>{this.state.chats[this.props.chatId].name}</h2>
@@ -69,11 +128,13 @@ class Messages extends React.Component {
 }
 
 const mapStateToProps = store => ({
-    messagesStore: store.messageReducer 
+    messagesStore: store.messageReducer,
+    chatsStore: store.chats
 });
 
 const mapDispatchToProps = {
-    sendMessage: sendMessage
+    sendMessage: sendMessage,
+    setMessages: setMessages
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Messages);

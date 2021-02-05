@@ -29,4 +29,4 @@ const mapStateToProps = ({ chatReducer }) => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators ({}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessageList);
+export default connect(mapStateToProps)(MessageList);

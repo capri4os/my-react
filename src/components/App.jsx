@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-// import connect from 'react-redux/es/connect/connect';
 import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import connect from 'react-redux/es/connect/connect';
@@ -66,7 +65,7 @@ class App extends React.Component {
                     <Header />
                     <div className='chats'>
                         <ChatList 
-                            addChat = { this . addChat }
+                            addChat = { this.addChat }
                         />
                         <div className='current-chat'>
                         <Switch>
@@ -83,9 +82,9 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({}) => ({});
+// const mapStateToProps = ({}) => ({});
 
 const mapDispatchToProps = dispatch => bindActionCreators ({ sendMessage },
 dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)();

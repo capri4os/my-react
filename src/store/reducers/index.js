@@ -7,5 +7,5 @@ import chatReducer from './chat';
 export default history => combineReducers({
     router: connectRouter(history),
     messageReducer,
-    chatReducer,
+    // chats: chatReducer
 });
