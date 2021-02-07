@@ -61,10 +61,10 @@ class App extends React.Component {
             <main>
                 <Provider store={initStore()}>
                 <ConnectedRouter history={history}>
-                    <BrowserRouter>
                     <Header />
                     <div className='chats'>
                         <ChatList 
+                            chats = { this.state.chats }
                             addChat = { this.addChat }
                         />
                         <div className='current-chat'>
@@ -74,7 +74,6 @@ class App extends React.Component {
                         </Switch>
                         </div>
                     </div>
-                    </BrowserRouter>
                     </ConnectedRouter>
                 </Provider>
             </main> 
@@ -82,9 +81,9 @@ class App extends React.Component {
     }
 }
 
-// const mapStateToProps = ({}) => ({});
+const mapStateToProps = ({}) => ({});
 
 const mapDispatchToProps = dispatch => bindActionCreators ({ sendMessage },
 dispatch);
 
-export default connect(null, mapDispatchToProps)();
+export default connect(mapStateToProps, mapDispatchToProps)(App);

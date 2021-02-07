@@ -62,7 +62,7 @@ class ChatList extends React.Component {
                     hintText='Add new chat'
                     onChange={ this.handleChange }
                     value={ this.state.input }
-                    onKyeUp={ this.handleKeyUp }
+                    onKeyUp={ this.handleKeyUp }
             />}
         />
     </List>
