@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-// import connect from 'react-redux/es/connect/connect';
 import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import connect from 'react-redux/es/connect/connect';
@@ -15,6 +14,8 @@ import ChatList from './ChatList'
 import MessageList from './MessageList';
 import SendMessage from './SendMessage';
 import Messages from './pages/Messages';
+import IPhoneInstallPopup from './IPhoneInstallPopup';
+import PushNotificationToggle from './PushNotificationToggle';
 import initStore, {history} from '../store';
 
 import '../styles/App.css';
@@ -62,11 +63,12 @@ class App extends React.Component {
             <main>
                 <Provider store={initStore()}>
                 <ConnectedRouter history={history}>
-                    <BrowserRouter>
+                    <PushNotificationToggle/>
                     <Header />
                     <div className='chats'>
                         <ChatList 
-                            addChat = { this . addChat }
+                            chats = { this.state.chats }
+                            addChat = { this.addChat }
                         />
                         <div className='current-chat'>
                         <Switch>
@@ -75,7 +77,7 @@ class App extends React.Component {
                         </Switch>
                         </div>
                     </div>
-                    </BrowserRouter>
+                    <IPhoneInstallPopup/>
                     </ConnectedRouter>
                 </Provider>
             </main> 
