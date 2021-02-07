@@ -14,6 +14,8 @@ import ChatList from './ChatList'
 import MessageList from './MessageList';
 import SendMessage from './SendMessage';
 import Messages from './pages/Messages';
+import IPhoneInstallPopup from './IPhoneInstallPopup';
+import PushNotificationToggle from './PushNotificationToggle';
 import initStore, {history} from '../store';
 
 import '../styles/App.css';
@@ -61,6 +63,7 @@ class App extends React.Component {
             <main>
                 <Provider store={initStore()}>
                 <ConnectedRouter history={history}>
+                    <PushNotificationToggle/>
                     <Header />
                     <div className='chats'>
                         <ChatList 
@@ -74,6 +77,7 @@ class App extends React.Component {
                         </Switch>
                         </div>
                     </div>
+                    <IPhoneInstallPopup/>
                     </ConnectedRouter>
                 </Provider>
             </main> 
